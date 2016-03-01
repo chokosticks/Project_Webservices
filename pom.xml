@@ -14,11 +14,43 @@
             <artifactId>jdom</artifactId>
             <version>1.1</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>net.sourceforge.owlapi</groupId>-->
+            <!--<artifactId>owlapi-distribution</artifactId>-->
+            <!--<version>5.0.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.jena</groupId>-->
+            <!--<artifactId>jena-core</artifactId>-->
+            <!--<version>3.0.1</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>net.sourceforge.owlapi</groupId>-->
+            <!--<artifactId>owlapi-distribution</artifactId>-->
+            <!--<version>5.0.0</version>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>net.sourceforge.owlapi</groupId>
-            <artifactId>owlapi-distribution</artifactId>
-            <version>5.0.0</version>
+            <groupId>com.github.ansell.pellet</groupId>
+            <artifactId>pellet-core</artifactId>
+            <version>2.3.6-ansell</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.ansell.pellet</groupId>
+            <artifactId>pellet-owlapiv3</artifactId>
+            <version>2.3.6-ansell</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ansell.pellet</groupId>
+            <artifactId>pellet-jena</artifactId>
+            <version>2.3.6-ansell</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+
+
     </dependencies>
 
     

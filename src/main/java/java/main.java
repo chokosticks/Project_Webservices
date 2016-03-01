@@ -7,7 +7,6 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
-import applicantprofile.*;
 
 public class main {
     public static void main(String[] args){
@@ -17,23 +16,23 @@ public class main {
 
 //            InputStream input = getClass().getResourceAsStream("/classpath/to/my/file");
 
-            ApplicantProfile profile = new ApplicantProfile();
-            Parsers parsers = new Parsers();
-
-            profile = parsers.parseJAXB("/companyinfo1.xml", profile);
+//            ApplicantProfile profile = new ApplicantProfile();
+//            Parsers parsers = new Parsers();
+//
+//            profile = parsers.parseJAXB("/companyinfo1.xml", profile);
 
 
             //Output the application profile using jaxb
-            JAXBContext jaxbCtx = JAXBContext.newInstance(profile.getClass().getPackage().getName());
-            Marshaller marshaller = jaxbCtx.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+//            JAXBContext jaxbCtx = JAXBContext.newInstance(profile.getClass().getPackage().getName());
+//            Marshaller marshaller = jaxbCtx.createMarshaller();
+//            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+//            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
             String s = main.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             System.out.println(new File(s + "/applicationProfileOutput.xml").getAbsolutePath());
             s =  s.substring(0,s.lastIndexOf("/"));
             OutputStream os = new FileOutputStream(s + "/applicationProfileOutput.xml" );
-            marshaller.marshal( profile, os );
+//            marshaller.marshal( profile, os );
             os.close();
 
 

@@ -12,7 +12,7 @@ public class MainOLD {
 
 
   public static ArrayList<String> readWordList(BufferedReader input) throws IOException {
-        ArrayList<String> list1 = new ArrayList<>();
+        ArrayList<String> list1 = new ArrayList<String>();
 
         while (true) {
           String s = input.readLine();

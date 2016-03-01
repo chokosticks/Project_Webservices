@@ -3,14 +3,20 @@ package ontology;
 import java.util.HashMap;
 import java.util.Vector;
 
+//import org.mindswap.pellet.owlapi.Reasoner;
+//import org.semanticweb.owl.model.OWLClass;
+//import org.semanticweb.owl.model.OWLObjectProperty;
+//import org.semanticweb.owl.model.OWLOntology;
+//import org.semanticweb.owl.model.OWLOntologyManager;
+
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mindswap.pellet.owlapi.Reasoner;
-import org.semanticweb.owl.model.OWLClass;
-import org.semanticweb.owl.model.OWLObjectProperty;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyManager;
-
+import com.hp.hpl.jena.reasoner.Reasoner;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import sort.ClsQuickSort;
 
 
@@ -71,7 +77,7 @@ public class Test_MyOntManager {
 		assertNotNull(cls1);
 		OWLClass cls2 = mapName_OWLClass.get(clsName2.toLowerCase());
 		assertNotNull(cls2);
-		assertTrue(reasoner.isSubClassOf(cls2, cls1));  // this is
+		assertTrue(reasoner..isAssignableFrom(cls2, cls1));  // this is
 	}
 
 	@Test
@@ -84,7 +90,7 @@ public class Test_MyOntManager {
 		assertNotNull(cls1);
 		OWLClass cls2 = mapName_OWLClass.get(clsName2.toLowerCase());
 		assertNotNull(cls2);
-		assertTrue(reasoner.isSubClassOf(cls2, cls1));  // it considers both immediate and ancestors of a class as its super concepts
+		assertTrue(reasoner..isAssignableFrom(cls2, cls1));  // it considers both immediate and ancestors of a class as its super concepts
 	}
 
 
