@@ -1,10 +1,7 @@
 package sort;
 
-//import org.semanticweb.owl.model.OWLClass;
-//import org.mindswap.pellet.owlapi.Reasoner;
-
-import com.hp.hpl.jena.reasoner.Reasoner;
-import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owl.model.OWLClass;
+import org.mindswap.pellet.owlapi.Reasoner;
 
 /**
  * 

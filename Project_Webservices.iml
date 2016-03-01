@@ -12,42 +12,17 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.jdom:jdom:1.1" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.pellet:pellet-core:2.3.6-ansell" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.pellet:pellet-common:2.3.6-ansell" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.aterms:aterm-java:1.8.2-p1" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.jjtraveler:jjtraveler:0.6" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.aterms:shared-objects:1.4.9-p1" level="project" />
-    <orderEntry type="library" name="Maven: org.jgrapht:jgrapht-jdk1.5:0.7.3" level="project" />
-    <orderEntry type="library" name="Maven: msv:xsdlib:20030225" level="project" />
-    <orderEntry type="library" name="Maven: msv:relaxngDatatype:20030225" level="project" />
-    <orderEntry type="library" name="Maven: xerces:xercesImpl:2.10.0" level="project" />
-    <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.4.01" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.pellet:pellet-owlapiv3:2.3.6-ansell" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.owlapi:owlapi-api:3.4.9.2-ansell" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.abstract-service-loader:abstract-service-loader:0.4" level="project" />
-    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-model:2.7.8" level="project" />
-    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-util:2.7.8" level="project" />
-    <orderEntry type="library" name="Maven: org.openrdf.sesame:sesame-rio-api:2.7.8" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.5" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.owlapi:owlapi-impl:3.4.9.2-ansell" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.owlapi:owlapi-parsers:3.4.9.2-ansell" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.owlapi:owlapi-tools:3.4.9.2-ansell" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.pellet:pellet-query:2.3.6-ansell" level="project" />
-    <orderEntry type="library" name="Maven: com.hp.hpl.jena:arq:2.8.7" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.woodstox:wstx-asl:3.2.9" level="project" />
-    <orderEntry type="library" name="Maven: stax:stax-api:1.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:2.3.1" level="project" />
-    <orderEntry type="library" name="Maven: org.antlr:antlr-runtime:3.4" level="project" />
-    <orderEntry type="library" name="Maven: org.antlr:stringtemplate:3.2.1" level="project" />
-    <orderEntry type="library" name="Maven: antlr:antlr:2.7.7" level="project" />
-    <orderEntry type="library" name="Maven: org.kohsuke.metainf-services:metainf-services:1.4" level="project" />
-    <orderEntry type="library" name="Maven: com.github.ansell.pellet:pellet-jena:2.3.6-ansell" level="project" />
-    <orderEntry type="library" name="Maven: com.hp.hpl.jena:jena:2.6.4" level="project" />
-    <orderEntry type="library" name="Maven: com.hp.hpl.jena:iri:0.8" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.icu:icu4j:3.4.4" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:slf4j-log4j12:1.5.8" level="project" />
-    <orderEntry type="library" name="Maven: log4j:log4j:1.2.13" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" name="owlapi-src" level="project" />
+    <orderEntry type="library" name="owlapi-src1" level="project" />
+    <orderEntry type="library" name="owlapi-src2" level="project" />
+    <orderEntry type="library" name="pellet2" level="project" />
+    <orderEntry type="library" name="xsdlib" level="project" />
+    <orderEntry type="library" name="jena" level="project" />
+    <orderEntry type="library" name="pellet-owlapiv3" level="project" />
+    <orderEntry type="library" name="pellet-core" level="project" />
+    <orderEntry type="library" name="owlapi-bin" level="project" />
+    <orderEntry type="library" name="owlapi-bin1" level="project" />
   </component>
 </module>

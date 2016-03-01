@@ -1,22 +1,20 @@
 package ontology;
 
-import com.hp.hpl.jena.reasoner.Reasoner;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
-
-//import java.net.URI;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
-//import org.mindswap.pellet.owlapi.Reasoner;
-//import org.semanticweb.owl.apibinding.OWLManager;
-//import org.semanticweb.owl.model.OWLClass;
-//import org.semanticweb.owl.model.OWLObjectProperty;
-//import org.semanticweb.owl.model.OWLOntology;
-//import org.semanticweb.owl.model.OWLOntologyCreationException;
-//import org.semanticweb.owl.model.OWLOntologyManager;
+import org.mindswap.pellet.owlapi.Reasoner;
+import org.semanticweb.owl.apibinding.OWLManager;
+import org.semanticweb.owl.model.OWLClass;
+import org.semanticweb.owl.model.OWLDescription;
+import org.semanticweb.owl.model.OWLObjectProperty;
+import org.semanticweb.owl.model.OWLOntology;
+import org.semanticweb.owl.model.OWLOntologyCreationException;
+import org.semanticweb.owl.model.OWLOntologyManager;
+
 
 
 public class MyOntManager {
@@ -35,7 +33,7 @@ public class MyOntManager {
 	 * @param SrcOntLocation
 	 * @return
 	 */
-	public OWLOntology initializeOntology(OWLOntologyManager manager, String SrcOntLocation) {
+	public  OWLOntology initializeOntology(OWLOntologyManager manager, String SrcOntLocation) {
 		System.out.print("Reading Ontology " + SrcOntLocation + "...");
 		OWLOntology ontology = null;
 		try {
