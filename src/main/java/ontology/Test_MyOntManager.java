@@ -17,6 +17,7 @@ import org.semanticweb.owl.model.OWLOntologyManager;
 import sort.ClsQuickSort;
 
 
+
 public class Test_MyOntManager {
 	private static OWLOntologyManager manager = null;
 	private static OWLOntology ontology = null;

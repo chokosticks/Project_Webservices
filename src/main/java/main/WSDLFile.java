@@ -18,6 +18,7 @@ public class WSDLFile {
     public WSDLFile(String path) {
         try {
             parser = new WSDLParser();
+            System.out.println("[Path] "+path);
             definitions = parser.parse(new FileInputStream(path));
             service = definitions.getLocalServices().get(0);
             filename = path;

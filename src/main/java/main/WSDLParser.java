@@ -4,11 +4,11 @@ import com.predic8.wsdl.Message;
 import com.predic8.wsdl.Operation;
 import com.predic8.wsdl.Part;
 import com.predic8.wsdl.PortType;
-import generated.MatchedElementType;
-import generated.MatchedOperationType;
-import generated.MatchedWebServiceType;
-import generated.WSMatchingType;
 import groovy.xml.QName;
+import se.kth.ict.id2208.matching.MatchedElementType;
+import se.kth.ict.id2208.matching.MatchedOperationType;
+import se.kth.ict.id2208.matching.MatchedWebServiceType;
+import se.kth.ict.id2208.matching.WSMatchingType;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,6 +25,7 @@ public class WSDLParser {
     private final double LOWERBOUND = 0.53;
     private List<WSDLFile> wsdlFiles1 = new ArrayList<WSDLFile>();
     private List<WSDLFile> wsdlFiles2 = new ArrayList<WSDLFile>();
+    private String wsdlPath = "./src/main/resources/WSDLs/";
 
     public WSDLParser() {
         wordnetMatcher = new WordnetMatcher();
@@ -34,10 +35,10 @@ public class WSDLParser {
 
     public void loadWSDLs(){
 
-        File wsdls = new File("resources/WSDLs/");
+        File wsdls = new File(wsdlPath);
 
         for(File file: wsdls.listFiles()){
-            WSDLFile wsdlFile = new WSDLFile("resources/WSDLs/"+file.getName());
+            WSDLFile wsdlFile = new WSDLFile(wsdlPath+file.getName());
             wsdlFiles1.add(wsdlFile);
             wsdlFiles2.add(wsdlFile);
         }
@@ -98,7 +99,7 @@ public class WSDLParser {
                                     opScore += score;
                                     elementCount++;
 
-                                    MatchedElementType matchedElementType = new MatchedElementType(); 
+                                    MatchedElementType matchedElementType = new MatchedElementType();
                                     matchedElementType.setInputElement(inputPart);
                                     matchedElementType.setOutputElement(outputPart);
                                     matchedElementType.setScore(score);
