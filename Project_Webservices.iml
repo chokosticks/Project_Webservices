@@ -21,6 +21,17 @@
     <orderEntry type="library" name="pellet-core" level="project" />
     <orderEntry type="library" name="owlapi-bin" level="project" />
     <orderEntry type="library" name="owlapi-bin1" level="project" />
+    <orderEntry type="library" name="Maven: com.predic8:soa-model-core:1.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy:2.3.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-xml:2.3.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-json:2.3.9" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.2.2" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.6" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.9" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.9" level="project" />
+    <orderEntry type="library" name="arq-extra" level="project" />
+    <orderEntry type="library" name="jaws-bin" level="project" />
     <orderEntry type="library" name="Maven: org.jdom:jdom:1.1" level="project" />
     <orderEntry type="library" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
@@ -33,7 +44,6 @@
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.6" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.9" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.9" level="project" />
-    <orderEntry type="library" name="arq-extra" level="project" />
     <orderEntry type="library" name="jaws-bin" level="project" />
   </component>
 </module>
