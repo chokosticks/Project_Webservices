@@ -23,24 +23,24 @@ public class Wordnet
         cachedWords = new HashMap<String, Set<String>>();
     }
 
-    public double calculateScore(String w1, String w2) {
-        w1 = w1.toLowerCase();
-        w2 = w2.toLowerCase();
+    public double calculateScore(String word1, String word2) {
+        word1 = word1.toLowerCase();
+        word2 = word2.toLowerCase();
 
         // Compare w1 with w2 and all words from wordnet
-        double maxLevDistance = levensthein.getNormalizedDistance(w1, w2), temp = 0.0;
-        Synset[] synsets = database.getSynsets(w2, SynsetType.NOUN);
+        double maxLevDistance = levensthein.getNormalizedDistance(word1, word2), temp = 0.0;
+        Synset[] synsets = database.getSynsets(word2, SynsetType.NOUN);
         NounSynset nounSynset;
         Set<String> w2words = new TreeSet<String>();
         for (int i = 0; i < synsets.length; i++) {
             nounSynset = (NounSynset) synsets[i];
             w2words.add(nounSynset.getWordForms()[0]);
 
-            temp = levensthein.getNormalizedDistance(w1, nounSynset.getWordForms()[0]);
+            temp = levensthein.getNormalizedDistance(word1, nounSynset.getWordForms()[0]);
             if(temp > maxLevDistance) maxLevDistance = temp;
         }
 
-        cachedWords.put(w2, w2words);
+        cachedWords.put(word2, w2words);
 
         return maxLevDistance;
     }
