@@ -11,12 +11,13 @@ import java.util.Set;
 import java.util.TreeSet;
 import Levensthein.Levensthein;
 
-public class WordnetMatcher {
+public class Wordnet
+{
     WordNetDatabase database;
     Levensthein levensthein;
     HashMap<String, Set<String>> cachedWords;
 
-    public WordnetMatcher() {
+    public Wordnet() {
         database = WordNetDatabase.getFileInstance(); // Load the WordNet database
         levensthein = new Levensthein();
         cachedWords = new HashMap<String, Set<String>>();

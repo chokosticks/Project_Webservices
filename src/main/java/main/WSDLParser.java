@@ -21,14 +21,14 @@ public class WSDLParser {
 
 
     private String namespace = "http://www.w3.org/2001/XMLSchema";
-    private WordnetMatcher wordnetMatcher;
+    private Wordnet wordnet;
     private final double LOWERBOUND = 0.52;
     private List<WSDLFile> wsdlFiles1 = new ArrayList<WSDLFile>();
     private List<WSDLFile> wsdlFiles2 = new ArrayList<WSDLFile>();
     private String wsdlPath = "./src/main/resources/WSDLs/";
 
     public WSDLParser() {
-        wordnetMatcher = new WordnetMatcher();
+        wordnet = new Wordnet();
         loadWSDLs();
     }
 
@@ -92,7 +92,7 @@ public class WSDLParser {
 
                                 String outputPart = outPart.getName();
 
-                                double score = wordnetMatcher.calculateScore(inputPart, outputPart);
+                                double score = wordnet.calculateScore(inputPart, outputPart);
 
                                 if(score >= LOWERBOUND) {
                                     opScore += score;

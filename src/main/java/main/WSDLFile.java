@@ -10,16 +10,16 @@ import java.io.FileNotFoundException;
 
 public class WSDLFile {
 
+    private WSDLParser WSDLParser;
     private String filename;
-    private WSDLParser parser;
     private Definitions definitions;
     private Service service;
 
     public WSDLFile(String path) {
         try {
-            parser = new WSDLParser();
+            WSDLParser = new WSDLParser();
             System.out.println("[Path] "+path);
-            definitions = parser.parse(new FileInputStream(path));
+            definitions = WSDLParser.parse(new FileInputStream(path));
             service = definitions.getLocalServices().get(0);
             filename = path;
         } catch (FileNotFoundException e) {
@@ -27,17 +27,44 @@ public class WSDLFile {
         }
     }
 
-    public WSDLParser getParser() {
-        return parser;
-    }
 
-    public Definitions getDefinitions() {
-        return definitions;
-    }
-
-    public Service getService() {
+    public Service getService()
+    {
         return service;
     }
 
-    public String getFilename() { return filename; }
+    public Definitions getDefinitions()
+    {
+        return definitions;
+    }
+
+    public void setWSDLParser(com.predic8.wsdl.WSDLParser WSDLParser)
+    {
+        this.WSDLParser = WSDLParser;
+    }
+
+    public void setFilename(String filename)
+    {
+        this.filename = filename;
+    }
+
+    public void setDefinitions(Definitions definitions)
+    {
+        this.definitions = definitions;
+    }
+
+    public void setService(Service service)
+    {
+        this.service = service;
+    }
+
+    public String getFilename()
+    {
+        return filename;
+    }
+
+    public WSDLParser getWSDLParser()
+    {
+        return WSDLParser;
+    }
 }
