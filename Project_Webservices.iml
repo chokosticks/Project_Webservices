@@ -34,5 +34,6 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.9" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:jcl-over-slf4j:1.7.9" level="project" />
     <orderEntry type="library" name="arq-extra" level="project" />
+    <orderEntry type="library" name="jaws-bin" level="project" />
   </component>
 </module>
