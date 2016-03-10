@@ -6,7 +6,7 @@
 //
 
 
-package generated;
+package se.kth.ict.id2208.matching;
 
 import java.util.ArrayList;
 import java.util.List;

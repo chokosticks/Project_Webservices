@@ -6,7 +6,7 @@
 //
 
 
-package generated;
+package se.kth.ict.id2208.matching;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;

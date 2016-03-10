@@ -9,9 +9,10 @@ import generated.MatchedOperationType;
 import generated.MatchedWebServiceType;
 import generated.WSMatchingType;
 import groovy.xml.QName;
-import org.jdom.input.SAXBuilder;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by antondahlin on 2016-03-01.
@@ -20,21 +21,36 @@ public class WSDLParser {
 
 
     private String namespace = "http://www.w3.org/2001/XMLSchema";
-    private WordnetMatcher wm;
+    private WordnetMatcher wordnetMatcher;
     private final double LOWERBOUND = 0.53;
+    private List<WSDLFile> wsdlFiles1 = new ArrayList<WSDLFile>();
+    private List<WSDLFile> wsdlFiles2 = new ArrayList<WSDLFile>();
 
     public WSDLParser() {
-        wm = new WordnetMatcher();
+        wordnetMatcher = new WordnetMatcher();
+        loadWSDLs();
+    }
+
+
+    public void loadWSDLs(){
+
+        File wsdls = new File("resources/WSDLs/");
+
+        for(File file: wsdls.listFiles()){
+            WSDLFile wsdlFile = new WSDLFile("resources/WSDLs/"+file.getName());
+            wsdlFiles1.add(wsdlFile);
+            wsdlFiles2.add(wsdlFile);
+        }
     }
 
     public void matchAll() {
         WSMatchingType wsMatchingType = new WSMatchingType();
 
-        for(WSDLFile w1: WSDLManager.getInstance().getWsdlFiles()) {
-            for(WSDLFile w2: WSDLManager.getInstance().getWsdlFiles()) {
-                if(w1.equals(w2)) continue;
+        for(WSDLFile wsdlFile1: wsdlFiles1) {
+            for(WSDLFile wsdlFile2: wsdlFiles2) {
+                if(wsdlFile1.equals(wsdlFile2)) continue;
 
-                MatchedWebServiceType matchedWebServiceType = match(w1, w2);
+                MatchedWebServiceType matchedWebServiceType = match(wsdlFile1, wsdlFile2);
                 if(matchedWebServiceType != null)
                     wsMatchingType.getMacthing().add(matchedWebServiceType);
             }
@@ -43,14 +59,14 @@ public class WSDLParser {
 
     private MatchedWebServiceType match(WSDLFile wsdlFile1, WSDLFile wsdlFile2) {
         MatchedWebServiceType matchedWebServiceType = new MatchedWebServiceType();
-        matchedWebServiceType.setInputServiceName(wsdlFile.getService().getName());
+        matchedWebServiceType.setInputServiceName(wsdlFile1.getService().getName());
         matchedWebServiceType.setOutputServiceName(wsdlFile2.getService().getName());  
 
         double serviceScore = 0.0; int operationsCount = 0;
 
         // Service > Port > Binding > Port type > Operation > Message > Part > Types
         // Get all port types from wsdlFile1
-        for(PortType inPortType: wsdlFile.getDefs().getPortTypes()) {
+        for(PortType inPortType: wsdlFile1.getDefinitions().getPortTypes()) {
             // For each operation in portType of wsdlFile1
             for(Operation inOp: inPortType.getOperations()) {
                 MatchedOperationType operation = new MatchedOperationType();
@@ -65,7 +81,7 @@ public class WSDLParser {
                     String inputPart = inPart.getName(); 
 
                     // Compare it with all output operations of wsdlFile2
-                    for(PortType outPortType: wsdlFile2.getDefs().getPortTypes()) {
+                    for(PortType outPortType: wsdlFile2.getDefinitions().getPortTypes()) {
                         
                         for (Operation outOp: outPortType.getOperations()) {
                             operation.setOutputOperationName(outOp.getName());
@@ -76,7 +92,7 @@ public class WSDLParser {
 
                                 String outputPart = outPart.getName();
 
-                                double score = wm.calculateScore(inputPart, outputPart);
+                                double score = wordnetMatcher.calculateScore(inputPart, outputPart);
 
                                 if(score >= LOWERBOUND) {
                                     opScore += score;
