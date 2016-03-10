@@ -5,10 +5,10 @@ import com.predic8.wsdl.Operation;
 import com.predic8.wsdl.Part;
 import com.predic8.wsdl.PortType;
 import groovy.xml.QName;
-import se.kth.ict.id2208.matching.MatchedElementType;
-import se.kth.ict.id2208.matching.MatchedOperationType;
-import se.kth.ict.id2208.matching.MatchedWebServiceType;
-import se.kth.ict.id2208.matching.WSMatchingType;
+import matching.MatchedElementType;
+import matching.MatchedOperationType;
+import matching.MatchedWebServiceType;
+import matching.WSMatchingType;
 
 import java.io.File;
 import java.util.ArrayList;
