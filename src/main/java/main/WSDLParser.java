@@ -28,30 +28,30 @@ public class WSDLParser {
     }
 
     public void matchAll() {
-        WSMatchingType wmt = new WSMatchingType();
+        WSMatchingType wsMatchingType = new WSMatchingType();
 
         for(WSDLFile w1: WSDLManager.getInstance().getWsdlFiles()) {
             for(WSDLFile w2: WSDLManager.getInstance().getWsdlFiles()) {
                 if(w1.equals(w2)) continue;
 
-                MatchedWebServiceType bla = match(w1, w2);
-                if(bla != null)
-                    wmt.getMacthing().add(bla);
+                MatchedWebServiceType matchedWebServiceType = match(w1, w2);
+                if(matchedWebServiceType != null)
+                    wsMatchingType.getMacthing().add(matchedWebServiceType);
             }
         }
     }
 
-    private MatchedWebServiceType match(WSDLFile w1, WSDLFile w2) {
-        MatchedWebServiceType wmt = new MatchedWebServiceType();
-        wmt.setInputServiceName(w1.getService().getName());
-        wmt.setOutputServiceName(w2.getService().getName());
+    private MatchedWebServiceType match(WSDLFile wsdlFile1, WSDLFile wsdlFile2) {
+        MatchedWebServiceType matchedWebServiceType = new MatchedWebServiceType();
+        matchedWebServiceType.setInputServiceName(wsdlFile.getService().getName());
+        matchedWebServiceType.setOutputServiceName(wsdlFile2.getService().getName());  
 
         double serviceScore = 0.0; int operationsCount = 0;
 
         // Service > Port > Binding > Port type > Operation > Message > Part > Types
-        // Get all port types from W1
-        for(PortType inPortType: w1.getDefs().getPortTypes()) {
-            // For each operation in portType of W1
+        // Get all port types from wsdlFile1
+        for(PortType inPortType: wsdlFile.getDefs().getPortTypes()) {
+            // For each operation in portType of wsdlFile1
             for(Operation inOp: inPortType.getOperations()) {
                 MatchedOperationType operation = new MatchedOperationType();
 
@@ -59,14 +59,14 @@ public class WSDLParser {
                 operation.setInputOperationName(inOp.getName());
                 Message inMessage = inOp.getInput().getMessage();
 
-                // For each part of the message W1
+                // For each part of the message wsdlFile1
                 for(Part inPart: inMessage.getParts()) {
                     if(!isSimple(inPart)) continue;
-                    String s1 = inPart.getName();
+                    String inputPart = inPart.getName(); 
 
-                    // Compare it with all output operations of W2, ffs
-                    for(PortType outPortType: w2.getDefs().getPortTypes()) {
-                        // Deja vu
+                    // Compare it with all output operations of wsdlFile2
+                    for(PortType outPortType: wsdlFile2.getDefs().getPortTypes()) {
+                        
                         for (Operation outOp: outPortType.getOperations()) {
                             operation.setOutputOperationName(outOp.getName());
                             Message outMessage = outOp.getOutput().getMessage();
@@ -74,20 +74,20 @@ public class WSDLParser {
                             for(Part outPart: outMessage.getParts()) {
                                 if(!isSimple(outPart)) continue;
 
-                                String s2 = outPart.getName();
+                                String outputPart = outPart.getName();
 
-                                double score = wm.calculateScore(s1, s2);
+                                double score = wm.calculateScore(inputPart, outputPart);
 
                                 if(score >= LOWERBOUND) {
                                     opScore += score;
                                     elementCount++;
 
-                                    MatchedElementType met = new MatchedElementType();
-                                    met.setInputElement(s1);
-                                    met.setOutputElement(s2);
-                                    met.setScore(score);
+                                    MatchedElementType matchedElementType = new MatchedElementType(); 
+                                    matchedElementType.setInputElement(inputPart);
+                                    matchedElementType.setOutputElement(outputPart);
+                                    matchedElementType.setScore(score);
 
-                                    operation.getMacthedElement().add(met);
+                                    operation.getMacthedElement().add(matchedElementType);
                                 }
                             }
                         }
@@ -99,18 +99,18 @@ public class WSDLParser {
                     operation.setOpScore(opFinalScore);
                     serviceScore += opFinalScore;
                     operationsCount++;
-                    wmt.getMacthedOperation().add(operation);
+                    matchedWebServiceType.getMacthedOperation().add(operation);
                 }
             }
         }
-        if(!wmt.getMacthedOperation().isEmpty()) {
+        if(!matchedWebServiceType.getMacthedOperation().isEmpty()) {
             double serviceFinalScore = serviceScore / operationsCount;
-            wmt.setWsScore(serviceFinalScore);
+            matchedWebServiceType.setWsScore(serviceFinalScore);
 
             // Print some shit
-            System.out.println("MATCHES FOUND FOR SERVICE : " + wmt.getInputServiceName());
-            System.out.println("MATCHED WITH : " + wmt.getOutputServiceName());
-            for(MatchedOperationType op: wmt.getMacthedOperation()) {
+            System.out.println("MATCHES FOUND FOR SERVICE : " + matchedWebServiceType.getInputServiceName());
+            System.out.println("MATCHED WITH : " + matchedWebServiceType.getOutputServiceName());
+            for(MatchedOperationType op: matchedWebServiceType.getMacthedOperation()) {
                 System.out.println("--Operation: " + op.getInputOperationName());
                 System.out.println("++Operation: " + op.getOutputOperationName());
                 for(MatchedElementType el: op.getMacthedElement())
@@ -120,7 +120,7 @@ public class WSDLParser {
         else
             return null;
 
-        return wmt;
+        return matchedWebServiceType;
     }
 
     private boolean isSimple(Part part) {
