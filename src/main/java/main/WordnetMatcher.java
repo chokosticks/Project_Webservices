@@ -6,8 +6,6 @@ import edu.smu.tspell.wordnet.Synset;
 import edu.smu.tspell.wordnet.SynsetType;
 import edu.smu.tspell.wordnet.WordNetDatabase;
 
-
-
 import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;

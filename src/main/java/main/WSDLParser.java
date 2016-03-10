@@ -22,7 +22,7 @@ public class WSDLParser {
 
     private String namespace = "http://www.w3.org/2001/XMLSchema";
     private WordnetMatcher wordnetMatcher;
-    private final double LOWERBOUND = 0.53;
+    private final double LOWERBOUND = 0.52;
     private List<WSDLFile> wsdlFiles1 = new ArrayList<WSDLFile>();
     private List<WSDLFile> wsdlFiles2 = new ArrayList<WSDLFile>();
     private String wsdlPath = "./src/main/resources/WSDLs/";
@@ -44,7 +44,7 @@ public class WSDLParser {
         }
     }
 
-    public void matchAll() {
+    public void match() {
         WSMatchingType wsMatchingType = new WSMatchingType();
 
         for(WSDLFile wsdlFile1: wsdlFiles1) {
@@ -65,7 +65,6 @@ public class WSDLParser {
 
         double serviceScore = 0.0; int operationsCount = 0;
 
-        // Service > Port > Binding > Port type > Operation > Message > Part > Types
         // Get all port types from wsdlFile1
         for(PortType inPortType: wsdlFile1.getDefinitions().getPortTypes()) {
             // For each operation in portType of wsdlFile1
