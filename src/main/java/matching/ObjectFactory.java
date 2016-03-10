@@ -6,7 +6,7 @@
 //
 
 
-package se.kth.ict.id2208.matching;
+package matching;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
@@ -44,7 +44,7 @@ public class ObjectFactory {
      * Create an instance of {@link WSMatchingType }
      * 
      */
-    public se.kth.ict.id2208.matching.WSMatchingType createWSMatchingType() {
+    public matching.WSMatchingType createWSMatchingType() {
         return new WSMatchingType();
     }
 

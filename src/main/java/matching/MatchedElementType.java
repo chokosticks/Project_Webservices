@@ -6,7 +6,7 @@
 //
 
 
-package se.kth.ict.id2208.matching;
+package matching;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
