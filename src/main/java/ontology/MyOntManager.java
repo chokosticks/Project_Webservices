@@ -1,5 +1,6 @@
 package ontology;
 
+import java.io.File;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,8 +38,11 @@ public class MyOntManager {
 		System.out.print("Reading Ontology " + SrcOntLocation + "...");
 		OWLOntology ontology = null;
 		try {
-			ontology = manager.loadOntology(URI.create(SrcOntLocation));
+            File file = new File(SrcOntLocation);
+			ontology = manager.loadOntology(URI.create("file:"+file.getAbsolutePath()));
+
 		} catch (OWLOntologyCreationException e) {
+
 			e.printStackTrace();
 		}
 		return ontology;

@@ -11,6 +11,10 @@ import java.util.Set;
 import java.util.TreeSet;
 import Levensthein.Levensthein;
 
+
+/**
+ * Created by antondahlin on 2016-03-03.
+ */
 public class Wordnet
 {
     WordNetDatabase database;
@@ -37,7 +41,9 @@ public class Wordnet
             w2words.add(nounSynset.getWordForms()[0]);
 
             temp = levensthein.getNormalizedDistance(word1, nounSynset.getWordForms()[0]);
-            if(temp > maxLevDistance) maxLevDistance = temp;
+
+            if(temp > maxLevDistance)
+                maxLevDistance = temp;
         }
 
         cachedWords.put(word2, w2words);

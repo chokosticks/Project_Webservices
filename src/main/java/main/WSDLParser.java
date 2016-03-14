@@ -5,10 +5,8 @@ import com.predic8.wsdl.Operation;
 import com.predic8.wsdl.Part;
 import com.predic8.wsdl.PortType;
 import groovy.xml.QName;
-import se.kth.ict.id2208.matching.MatchedElementType;
-import se.kth.ict.id2208.matching.MatchedOperationType;
-import se.kth.ict.id2208.matching.MatchedWebServiceType;
-import se.kth.ict.id2208.matching.WSMatchingType;
+
+import matching.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class WSDLParser {
 
     private String namespace = "http://www.w3.org/2001/XMLSchema";
     private Wordnet wordnet;
-    private final double LOWERBOUND = 0.52;
+    private final double LOWERBOUND = 0.2;
     private List<WSDLFile> wsdlFiles1 = new ArrayList<WSDLFile>();
     private List<WSDLFile> wsdlFiles2 = new ArrayList<WSDLFile>();
     private String wsdlPath = "./src/main/resources/WSDLs/";
