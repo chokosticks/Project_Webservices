@@ -23,6 +23,7 @@ import java.util.List;
 /**
  * Created by antondahlin on 2016-03-10.
  */
+@SuppressWarnings("Duplicates")
 public class SAWSDLParser {
 
     private String namespace = "http://www.w3.org/2001/XMLSchema";
@@ -148,7 +149,7 @@ public class SAWSDLParser {
         if(!matchedWebServiceType.getMacthedOperation().isEmpty()) {
             double serviceFinalScore = serviceScore / operationsCount;
             matchedWebServiceType.setWsScore(serviceFinalScore);
-
+            //TODO skriv ut filer
             // Print some shit
             System.out.println("MATCHES FOUND FOR SERVICE : " + matchedWebServiceType.getInputServiceName());
             System.out.println("MATCHED WITH : " + matchedWebServiceType.getOutputServiceName());

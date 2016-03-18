@@ -17,14 +17,14 @@ import Levensthein.Levensthein;
  */
 public class Wordnet
 {
-    WordNetDatabase database;
+    WordNetDatabase db;
     Levensthein levensthein;
     HashMap<String, Set<String>> cachedWords;
 
     public Wordnet() {
-        database = WordNetDatabase.getFileInstance(); // Load the WordNet database
-        levensthein = new Levensthein();
         cachedWords = new HashMap<String, Set<String>>();
+        db = WordNetDatabase.getFileInstance();
+        levensthein = new Levensthein();
     }
 
     public double calculateLevenstheinScore(String word1, String word2) {
@@ -32,12 +32,14 @@ public class Wordnet
         word2 = word2.toLowerCase();
 
         // Compare w1 with w2 and all words from wordnet
-        double maxLevDistance = levensthein.getNormalizedDistance(word1, word2), temp = 0.0;
-        Synset[] synsets = database.getSynsets(word2, SynsetType.NOUN);
+        double maxLevDistance = levensthein.getNormalizedDistance(word1, word2);
+        double temp = 0.0;
+
+        Synset[] synonymSets = db.getSynsets(word2, SynsetType.NOUN);
         NounSynset nounSynset;
         Set<String> w2words = new TreeSet<String>();
-        for (int i = 0; i < synsets.length; i++) {
-            nounSynset = (NounSynset) synsets[i];
+        for (int i = 0; i < synonymSets.length; i++) {
+            nounSynset = (NounSynset) synonymSets[i];
             w2words.add(nounSynset.getWordForms()[0]);
 
             temp = levensthein.getNormalizedDistance(word1, nounSynset.getWordForms()[0]);
