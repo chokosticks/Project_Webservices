@@ -27,7 +27,7 @@ public class Wordnet
         cachedWords = new HashMap<String, Set<String>>();
     }
 
-    public double calculateScore(String word1, String word2) {
+    public double calculateLevenstheinScore(String word1, String word2) {
         word1 = word1.toLowerCase();
         word2 = word2.toLowerCase();
 

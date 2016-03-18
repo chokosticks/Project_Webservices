@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Created by antondahlin on 2016-03-01.
  */
+@SuppressWarnings("Duplicates")
 public class WSDLParser {
 
 
@@ -23,9 +24,12 @@ public class WSDLParser {
     private final double LOWERBOUND = 0.2;
     private List<WSDLFile> wsdlFiles1 = new ArrayList<WSDLFile>();
     private List<WSDLFile> wsdlFiles2 = new ArrayList<WSDLFile>();
-    private String wsdlPath = "./src/main/resources/WSDLs/";
+    private String wsdlPath;
 
     public WSDLParser() {
+        String basePath = new File("").getAbsolutePath();
+        wsdlPath = basePath.replace("\\", "/") + "/src/main/resources/WSDLs/";
+
         wordnet = new Wordnet();
         loadWSDLs();
     }
@@ -36,7 +40,8 @@ public class WSDLParser {
         File wsdls = new File(wsdlPath);
 
         for(File file: wsdls.listFiles()){
-            WSDLFile wsdlFile = new WSDLFile(wsdlPath+file.getName());
+            System.out.println("wsdl file path name: " + wsdlPath);
+            WSDLFile wsdlFile = new WSDLFile(wsdlPath+file.getName(), true);
             wsdlFiles1.add(wsdlFile);
             wsdlFiles2.add(wsdlFile);
         }
@@ -90,7 +95,7 @@ public class WSDLParser {
 
                                 String outputPart = outPart.getName();
 
-                                double score = wordnet.calculateScore(inputPart, outputPart);
+                                double score = wordnet.calculateLevenstheinScore(inputPart, outputPart);
 
                                 if(score >= LOWERBOUND) {
                                     opScore += score;

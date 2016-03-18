@@ -54,7 +54,7 @@ public class SAWSDLParser {
         File wsdls = new File(sawsdlPath);
 
         for(File file: wsdls.listFiles()){
-            WSDLFile wsdlFile = new WSDLFile(sawsdlPath+file.getName());
+            WSDLFile wsdlFile = new WSDLFile(sawsdlPath+file.getName(), false);
             sawsdlFiles1.add(wsdlFile);
             sawsdlFiles2.add(wsdlFile);
         }

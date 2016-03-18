@@ -44,7 +44,7 @@ public class WSDLFile {
     private HashMap<String, String> classes = new HashMap<String, String>();
     private HashMap<String, String> types = new HashMap<String, String>();
 
-    public WSDLFile(String path) {
+    public WSDLFile(String path, boolean isWSDL) {
         try {
             WSDLParser = new WSDLParser();
             System.out.println("[Path] "+path);
@@ -54,48 +54,55 @@ public class WSDLFile {
             service = definitions.getLocalServices().get(0);
             filename = path;
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = null;
-            dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(filename);
+            if(!isWSDL)
+            {
+                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder dBuilder = null;
+                dBuilder = dbFactory.newDocumentBuilder();
+                doc = dBuilder.parse(filename);
 
-            NodeList simpleTypes = doc.getElementsByTagName("xsd:simpleType");
-            NodeList complexTypes = doc.getElementsByTagName("xsd:complexType");
+                NodeList simpleTypes = doc.getElementsByTagName("xsd:simpleType");
+                NodeList complexTypes = doc.getElementsByTagName("xsd:complexType");
 
 
-            for(int i = 0; i < simpleTypes.getLength(); i++){
-                String name = simpleTypes.item(i).getAttributes().getNamedItem("name").getNodeValue();
-                String modelReference = simpleTypes.item(i).getAttributes().getNamedItem("sawsdl:modelReference").getTextContent();
-                String classs = null;
-                if(modelReference != null) {
-                    classs = extractClass(modelReference);
+                for (int i = 0; i < simpleTypes.getLength(); i++)
+                {
+                    String name = simpleTypes.item(i).getAttributes().getNamedItem("name").getNodeValue();
+                    String modelReference = simpleTypes.item(i).getAttributes().getNamedItem("sawsdl:modelReference").getTextContent();
+                    String classs = null;
+                    if (modelReference != null)
+                    {
+                        classs = extractClass(modelReference);
+                    }
+                    System.out.println("[NAME] " + name + " [CLASS] " + classs);
+                    classes.put(name, classs);
+
                 }
-                System.out.println("[NAME] "+name+" [CLASS] "+classs);
-                classes.put(name, classs);
-
-            }
-            for(int i = 0; i < complexTypes.getLength(); i++){
-                String name = complexTypes.item(i).getAttributes().getNamedItem("name").getNodeValue();
-                String modelReference = complexTypes.item(i).getAttributes().getNamedItem("sawsdl:modelReference").getTextContent();
-                String classs = null;
-                if(modelReference != null) {
-                    classs = extractClass(modelReference);
+                for (int i = 0; i < complexTypes.getLength(); i++)
+                {
+                    String name = complexTypes.item(i).getAttributes().getNamedItem("name").getNodeValue();
+                    String modelReference = complexTypes.item(i).getAttributes().getNamedItem("sawsdl:modelReference").getTextContent();
+                    String classs = null;
+                    if (modelReference != null)
+                    {
+                        classs = extractClass(modelReference);
+                    }
+                    System.out.println("[NAME] " + name + " [CLASS] " + classs);
+                    classes.put(name, classs);
                 }
-                System.out.println("[NAME] "+name+" [CLASS] "+classs);
-                classes.put(name, classs);
+
+                NodeList parts = doc.getElementsByTagName("wsdl:part");
+
+                for (int i = 0; i < parts.getLength(); i++)
+                {
+                    String name = parts.item(i).getAttributes().getNamedItem("name").getNodeValue();
+                    String type = parts.item(i).getAttributes().getNamedItem("type").getNodeValue();
+
+                    System.out.println("\t[NAME] " + name + " [TYPE] " + type);
+
+                    types.put(name, type);
+                }
             }
-
-            NodeList parts = doc.getElementsByTagName("wsdl:part");
-
-            for(int i = 0; i < parts.getLength(); i++){
-                String name = parts.item(i).getAttributes().getNamedItem("name").getNodeValue();
-                String type = parts.item(i).getAttributes().getNamedItem("type").getNodeValue();
-
-                System.out.println("\t[NAME] "+name+" [TYPE] "+type);
-
-                types.put(name, type);
-            }
-
             System.out.println("\n\n");
         } catch (FileNotFoundException e) {
             e.printStackTrace();

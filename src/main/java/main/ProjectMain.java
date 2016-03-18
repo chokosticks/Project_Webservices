@@ -15,10 +15,10 @@ public class ProjectMain {
     public static void main(String[] args) throws JDOMException, IOException, ParserConfigurationException, SAXException {
         System.setProperty("wordnet.database.dir", "./src/main/resources/dict/");
 
-//        WSDLParser wsdlParser = new WSDLParser();
-//        wsdlParser.match();
+        WSDLParser wsdlParser = new WSDLParser();
+        wsdlParser.match();
 
-        SAWSDLParser sawsdlParser = new SAWSDLParser();
-        sawsdlParser.match();
+//        SAWSDLParser sawsdlParser = new SAWSDLParser();
+//        sawsdlParser.match();
     }
 }

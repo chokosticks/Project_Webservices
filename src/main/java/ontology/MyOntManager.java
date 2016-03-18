@@ -39,7 +39,12 @@ public class MyOntManager {
 		OWLOntology ontology = null;
 		try {
             File file = new File(SrcOntLocation);
-			ontology = manager.loadOntology(URI.create("file:"+file.getAbsolutePath()));
+
+			//Mac version
+			//ontology = manager.loadOntology(URI.create("file:"+file.getAbsolutePath()));
+
+			//Windows version
+			ontology = manager.loadOntology(URI.create("file:"+file.getAbsolutePath().replace("\\", "/")));
 
 		} catch (OWLOntologyCreationException e) {
 
