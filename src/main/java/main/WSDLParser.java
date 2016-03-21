@@ -160,17 +160,6 @@ public class WSDLParser {
         if(!matchedWebServiceType.getMacthedOperation().isEmpty()) {
             double serviceFinalScore = serviceScore / operationsCount;
             matchedWebServiceType.setWsScore(serviceFinalScore);
-
-
-            // Print some shit
-            System.out.println("MATCHES FOUND FOR SERVICE : " + matchedWebServiceType.getInputServiceName());
-            System.out.println("MATCHED WITH : " + matchedWebServiceType.getOutputServiceName());
-            for(MatchedOperationType op: matchedWebServiceType.getMacthedOperation()) {
-                System.out.println(">>Operation: " + op.getInputOperationName());
-                System.out.println("<<Operation: " + op.getOutputOperationName());
-                for(MatchedElementType el: op.getMacthedElement())
-                    System.out.println("==== " + el.getInputElement() + " <-> " + el.getOutputElement() + "(" + el.getScore() + ")");
-            }
         }
         else
             return null;

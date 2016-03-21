@@ -189,17 +189,6 @@ public class SAWSDLParser {
         if(!matchedWebServiceType.getMacthedOperation().isEmpty()) {
             double serviceFinalScore = serviceScore / operationsCount;
             matchedWebServiceType.setWsScore(serviceFinalScore);
-            // Print some shit
-            System.out.println("MATCHES FOUND FOR SERVICE : " + matchedWebServiceType.getInputServiceName());
-            System.out.println("MATCHED WITH : " + matchedWebServiceType.getOutputServiceName());
-            for(MatchedOperationType op: matchedWebServiceType.getMacthedOperation()) {
-                System.out.println(">>Operation: " + op.getInputOperationName());
-                System.out.println("<<Operation: " + op.getOutputOperationName());
-                for(MatchedElementType el: op.getMacthedElement()) {
-                    System.out.println("==== " + el.getInputElement() + " <-> " + el.getOutputElement() + "(" + el.getScore() + ")");
-                }
-
-            }
         }
         else
             return null;
@@ -220,6 +209,9 @@ public class SAWSDLParser {
 
         if(owlClass1 == null || owlClass2 == null)
             return 0.0;
+//        else if(reasoner.isSameAs(owlClass1.asOWLIndividual(), owlClass2.asOWLIndividual())){
+//            return 1.0;
+//        }
         else if(reasoner.isSubClassOf(owlClass1, owlClass2))
             return 0.8;
         else if(reasoner.isSubClassOf(owlClass2,owlClass1))
