@@ -17,9 +17,12 @@ public class ProjectMain {
 
         WSDLParser wsdlParser = new WSDLParser();
         wsdlParser.match();
-        wsdlParser.writeFile();
+        wsdlParser.writeFile("task1");
+
 
 //        SAWSDLParser sawsdlParser = new SAWSDLParser();
 //        sawsdlParser.match();
+//        sawsdlParser.match("task2");
+
     }
 }

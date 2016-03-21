@@ -67,7 +67,7 @@ public class WSDLParser {
 
     }
 
-    public void writeFile()
+    public void writeFile(String task)
     {
         try
         {
@@ -79,9 +79,9 @@ public class WSDLParser {
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             String s = WSDLParser.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-            System.out.println(new File(s + "/applicationProfileOutput.xml").getAbsolutePath());
+            System.out.println(new File(s + "/"+task+"Output.xml").getAbsolutePath());
             s =  s.substring(0,s.lastIndexOf("/"));
-            OutputStream os = new FileOutputStream(s + "/applicationProfileOutput.xml" );
+            OutputStream os = new FileOutputStream(s + "/"+task+"Output.xml" );
             marshaller.marshal( wsMatchingType, os );
             os.close();
         } catch (JAXBException e)

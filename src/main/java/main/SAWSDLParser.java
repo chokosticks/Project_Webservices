@@ -14,7 +14,11 @@ import org.semanticweb.owl.model.OWLClass;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
 
-import java.io.File;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.util.*;
 
 
@@ -35,6 +39,7 @@ public class SAWSDLParser {
     private String sawsdlPath = "./src/main/resources/SAWSDLs/";
     private List<WSDLFile> sawsdlFiles1 = new ArrayList<WSDLFile>();
     private List<WSDLFile> sawsdlFiles2 = new ArrayList<WSDLFile>();
+    private WSMatchingType wsMatchingType = new WSMatchingType();
 
 
 
@@ -60,6 +65,39 @@ public class SAWSDLParser {
     }
 
 
+    public void writeFile(String task)
+    {
+        try
+        {
+            JAXBContext context = JAXBContext.newInstance(WSMatchingType.class);
+            Marshaller marshaller = context.createMarshaller();
+//
+//                jaxbCtx = javax.xml.bind.JAXBContext.newInstance(matchedWebServiceType.getClass().getPackage().getName());
+//                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
+            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
+            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            String s = WSDLParser.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+            System.out.println(new File(s + "/"+task+"Output.xml").getAbsolutePath());
+            s =  s.substring(0,s.lastIndexOf("/"));
+            OutputStream os = new FileOutputStream(s + "/"+task+"Output.xml" );
+            marshaller.marshal( wsMatchingType, os );
+            os.close();
+        } catch (JAXBException e)
+        {
+            e.printStackTrace();
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        } catch (URISyntaxException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
     public void loadSAWSDLs(){
 
         File wsdls = new File(sawsdlPath);
@@ -72,7 +110,7 @@ public class SAWSDLParser {
     }
 
     public void match() {
-        WSMatchingType wsMatchingType = new WSMatchingType();
+        wsMatchingType = new WSMatchingType();
 
         for(WSDLFile wsdlFile1: sawsdlFiles1) {
             for(WSDLFile wsdlFile2: sawsdlFiles2) {
