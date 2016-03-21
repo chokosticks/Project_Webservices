@@ -124,13 +124,15 @@ public class SAWSDLParser {
     }
 
     private MatchedWebServiceType match(WSDLFile wsdlFile1, WSDLFile wsdlFile2) {
+
         MatchedWebServiceType matchedWebServiceType = new MatchedWebServiceType();
         matchedWebServiceType.setInputServiceName(wsdlFile1.getService().getName());
         matchedWebServiceType.setOutputServiceName(wsdlFile2.getService().getName());
 
 
 
-        double serviceScore = 0.0; int operationsCount = 0;
+        double serviceScore = 0.0;
+        int operationsCount = 0;
 
         // Get all port types from wsdlFile1
         for(PortType inPortType: wsdlFile1.getDefinitions().getPortTypes()) {
@@ -158,6 +160,7 @@ public class SAWSDLParser {
                             operation.setOutputOperationName(outOp.getName());
                             Message outMessage = outOp.getOutput().getMessage();
 
+                            // For each part in the output message
                             for(Part outPart: outMessage.getParts()) {
 
                                 String outputPart = outPart.getName();
@@ -197,18 +200,6 @@ public class SAWSDLParser {
         if(!matchedWebServiceType.getMacthedOperation().isEmpty()) {
             double serviceFinalScore = serviceScore / operationsCount;
             matchedWebServiceType.setWsScore(serviceFinalScore);
-            //TODO skriv ut filer
-            // Print some shit
-            System.out.println("MATCHES FOUND FOR SERVICE : " + matchedWebServiceType.getInputServiceName());
-            System.out.println("MATCHED WITH : " + matchedWebServiceType.getOutputServiceName());
-            for(MatchedOperationType op: matchedWebServiceType.getMacthedOperation()) {
-                System.out.println("--Operation: " + op.getInputOperationName());
-                System.out.println("++Operation: " + op.getOutputOperationName());
-                for(MatchedElementType el: op.getMacthedElement()) {
-                    System.out.println("==== " + el.getInputElement() + " <-> " + el.getOutputElement() + "(" + el.getScore() + ")");
-                }
-
-            }
         }
         else
             return null;
@@ -217,9 +208,6 @@ public class SAWSDLParser {
     }
 
     private double matchingDegree(String class1, String class2){
-
-
-
 
         if(class1.equalsIgnoreCase(class2))
             return 1.0;
