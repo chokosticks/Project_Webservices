@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "WSMatchingType", propOrder = {
         "matching"
 })
-@XmlRootElement(name = "applicantprofile")
+@XmlRootElement(name = "WSMatchingType")
         public class WSMatchingType {
 
     @XmlElement(name = "Matching", required = true)

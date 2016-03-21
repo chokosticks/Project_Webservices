@@ -20,9 +20,9 @@ public class ProjectMain {
         wsdlParser.writeFile("task1");
 
 
-//        SAWSDLParser sawsdlParser = new SAWSDLParser();
-//        sawsdlParser.match();
-//        sawsdlParser.match("task2");
+        SAWSDLParser sawsdlParser = new SAWSDLParser();
+        sawsdlParser.match();
+        sawsdlParser.writeFile("task2");
 
     }
 }
