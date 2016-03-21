@@ -71,9 +71,6 @@ public class SAWSDLParser {
         {
             JAXBContext context = JAXBContext.newInstance(WSMatchingType.class);
             Marshaller marshaller = context.createMarshaller();
-//
-//                jaxbCtx = javax.xml.bind.JAXBContext.newInstance(matchedWebServiceType.getClass().getPackage().getName());
-//                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             String s = WSDLParser.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
@@ -165,8 +162,6 @@ public class SAWSDLParser {
                                 String typeOut = wsdlFile2.getTypes().get(outputPart.toLowerCase());
                                 String classsOut = wsdlFile2.getClasses().get(typeOut.toLowerCase());
 
-//                                System.out.println("\t[TYPE] "+typeOut+" [CLASS] "+classsOut);
-
                                 double score = matchingDegree(classsIn, classsOut);
 
                                 if(score >= LOWERBOUND) {
@@ -185,7 +180,7 @@ public class SAWSDLParser {
                     }
                 }
                 if(!operation.getMacthedElement().isEmpty()) {
-                    // If we actually had matches
+                    // If there were matches
                     double opFinalScore = opScore / elementCount;
                     operation.setOpScore(opFinalScore);
                     serviceScore += opFinalScore;
@@ -229,8 +224,6 @@ public class SAWSDLParser {
 
         if(owlClass1 == null || owlClass2 == null)
             return 0.0;
-//        else if(reasoner.isSameAs(owlClass1.asOWLIndividual(), owlClass2.asOWLIndividual()))
-//            return 1.0;
         else if(reasoner.isSubClassOf(owlClass1, owlClass2))
             return 0.8;
         else if(reasoner.isSubClassOf(owlClass2,owlClass1))
