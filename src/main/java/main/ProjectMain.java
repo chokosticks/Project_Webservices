@@ -17,6 +17,7 @@ public class ProjectMain {
 
         WSDLParser wsdlParser = new WSDLParser();
         wsdlParser.match();
+        wsdlParser.writeFile();
 
 //        SAWSDLParser sawsdlParser = new SAWSDLParser();
 //        sawsdlParser.match();

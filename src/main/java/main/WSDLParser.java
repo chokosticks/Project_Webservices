@@ -29,6 +29,7 @@ public class WSDLParser {
     private List<WSDLFile> wsdlFiles1 = new ArrayList<WSDLFile>();
     private List<WSDLFile> wsdlFiles2 = new ArrayList<WSDLFile>();
     private String wsdlPath;
+    WSMatchingType wsMatchingType = new WSMatchingType();
 
     public WSDLParser() {
         String basePath = new File("").getAbsolutePath();
@@ -52,7 +53,7 @@ public class WSDLParser {
     }
 
     public void match() {
-        WSMatchingType wsMatchingType = new WSMatchingType();
+        wsMatchingType = new WSMatchingType();
 
         for(WSDLFile wsdlFile1: wsdlFiles1) {
             for(WSDLFile wsdlFile2: wsdlFiles2) {
@@ -62,6 +63,39 @@ public class WSDLParser {
                 if(matchedWebServiceType != null)
                     wsMatchingType.getMatching().add(matchedWebServiceType);
             }
+        }
+
+    }
+
+    public void writeFile()
+    {
+        try
+        {
+            JAXBContext context = JAXBContext.newInstance(WSMatchingType.class);
+            Marshaller marshaller = context.createMarshaller();
+//
+//                jaxbCtx = javax.xml.bind.JAXBContext.newInstance(matchedWebServiceType.getClass().getPackage().getName());
+//                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
+            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
+            marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            String s = WSDLParser.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+            System.out.println(new File(s + "/applicationProfileOutput.xml").getAbsolutePath());
+            s =  s.substring(0,s.lastIndexOf("/"));
+            OutputStream os = new FileOutputStream(s + "/applicationProfileOutput.xml" );
+            marshaller.marshal( wsMatchingType, os );
+            os.close();
+        } catch (JAXBException e)
+        {
+            e.printStackTrace();
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        } catch (URISyntaxException e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -130,36 +164,6 @@ public class WSDLParser {
             double serviceFinalScore = serviceScore / operationsCount;
             matchedWebServiceType.setWsScore(serviceFinalScore);
             //TODO skriv ut filer
-
-            javax.xml.bind.JAXBContext jaxbCtx = null;
-            try
-            {
-                JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
-                Marshaller marshaller = context.createMarshaller();
-//
-//                jaxbCtx = javax.xml.bind.JAXBContext.newInstance(matchedWebServiceType.getClass().getPackage().getName());
-//                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
-                marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
-                marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                String s = WSDLParser.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-                System.out.println(new File(s + "/applicationProfileOutput.xml").getAbsolutePath());
-                s =  s.substring(0,s.lastIndexOf("/"));
-                OutputStream os = new FileOutputStream(s + "/applicationProfileOutput.xml" );
-                marshaller.marshal( matchedWebServiceType, os );
-                os.close();
-            } catch (JAXBException e)
-            {
-                e.printStackTrace();
-            } catch (FileNotFoundException e)
-            {
-                e.printStackTrace();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            } catch (URISyntaxException e)
-            {
-                e.printStackTrace();
-            }
 
             // Print some shit
             System.out.println("MATCHES FOUND FOR SERVICE : " + matchedWebServiceType.getInputServiceName());
