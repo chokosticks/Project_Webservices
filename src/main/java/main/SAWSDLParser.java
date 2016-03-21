@@ -127,11 +127,11 @@ public class SAWSDLParser {
 
 
 
-        double serviceScore = 0.0; int operationsCount = 0;
+        double serviceScore = 0.0;
+        int operationsCount = 0;
 
-        // Get all port types from wsdlFile1
+
         for(PortType inPortType: wsdlFile1.getDefinitions().getPortTypes()) {
-            // For each operation in portType of wsdlFile1
             for(Operation inOp: inPortType.getOperations()) {
                 MatchedOperationType operation = new MatchedOperationType();
 
@@ -139,16 +139,13 @@ public class SAWSDLParser {
                 operation.setInputOperationName(inOp.getName());
                 Message inMessage = inOp.getInput().getMessage();
 
-                // For each part of the message wsdlFile1
                 for(Part inPart: inMessage.getParts()) {
                     String inputPart = inPart.getName();
 
                     String typeIn = wsdlFile1.getTypes().get(inputPart.toLowerCase());
-                    String classsIn = wsdlFile1.getClasses().get(typeIn.toLowerCase());
+                    String classIn = wsdlFile1.getClasses().get(typeIn.toLowerCase());
 
 
-
-                    // Compare it with all output operations of wsdlFile2
                     for(PortType outPortType: wsdlFile2.getDefinitions().getPortTypes()) {
 
                         for (Operation outOp: outPortType.getOperations()) {
@@ -160,9 +157,9 @@ public class SAWSDLParser {
                                 String outputPart = outPart.getName();
 
                                 String typeOut = wsdlFile2.getTypes().get(outputPart.toLowerCase());
-                                String classsOut = wsdlFile2.getClasses().get(typeOut.toLowerCase());
+                                String classOut = wsdlFile2.getClasses().get(typeOut.toLowerCase());
 
-                                double score = matchingDegree(classsIn, classsOut);
+                                double score = matchingDegree(classIn, classOut);
 
                                 if(score >= LOWERBOUND) {
                                     opScore += score;
