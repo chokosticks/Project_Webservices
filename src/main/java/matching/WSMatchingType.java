@@ -37,26 +37,26 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "WSMatchingType", propOrder = {
-    "macthing"
+        "matching"
 })
 public class WSMatchingType {
 
-    @XmlElement(name = "Macthing", required = true)
-    protected List<MatchedWebServiceType> macthing;
+    @XmlElement(name = "Matching", required = true)
+    protected List<MatchedWebServiceType> matching;
 
     /**
-     * Gets the value of the macthing property.
+     * Gets the value of the matching property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the macthing property.
+     * This is why there is not a <CODE>set</CODE> method for the matching property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getMacthing().add(newItem);
+     *    getMatching().add(newItem);
      * </pre>
      * 
      * 
@@ -66,11 +66,11 @@ public class WSMatchingType {
      * 
      * 
      */
-    public List<MatchedWebServiceType> getMacthing() {
-        if (macthing == null) {
-            macthing = new ArrayList<MatchedWebServiceType>();
+    public List<MatchedWebServiceType> getMatching() {
+        if (matching == null) {
+            matching = new ArrayList<MatchedWebServiceType>();
         }
-        return this.macthing;
+        return this.matching;
     }
 
 }

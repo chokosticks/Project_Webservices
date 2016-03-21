@@ -8,7 +8,9 @@ import groovy.xml.QName;
 
 import matching.*;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -58,7 +60,7 @@ public class WSDLParser {
 
                 MatchedWebServiceType matchedWebServiceType = match(wsdlFile1, wsdlFile2);
                 if(matchedWebServiceType != null)
-                    wsMatchingType.getMacthing().add(matchedWebServiceType);
+                    wsMatchingType.getMatching().add(matchedWebServiceType);
             }
         }
     }
@@ -132,8 +134,11 @@ public class WSDLParser {
             javax.xml.bind.JAXBContext jaxbCtx = null;
             try
             {
-                jaxbCtx = javax.xml.bind.JAXBContext.newInstance(matchedWebServiceType.getClass().getPackage().getName());
-                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
+                JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
+                Marshaller marshaller = context.createMarshaller();
+//
+//                jaxbCtx = javax.xml.bind.JAXBContext.newInstance(matchedWebServiceType.getClass().getPackage().getName());
+//                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
                 marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
                 marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
                 String s = WSDLParser.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();

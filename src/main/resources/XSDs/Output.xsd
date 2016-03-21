@@ -28,7 +28,7 @@
     
     <complexType name="WSMatchingType">
    		 <sequence>
-    		<element name="Macthing" type="tns:MatchedWebServiceType" maxOccurs="unbounded" minOccurs="1"/>
+    		<element name="Matching" type="tns:MatchedWebServiceType" maxOccurs="unbounded" minOccurs="1"/>
     	</sequence>
     </complexType>
     

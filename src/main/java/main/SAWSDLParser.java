@@ -70,7 +70,7 @@ public class SAWSDLParser {
 
                 MatchedWebServiceType matchedWebServiceType = match(wsdlFile1, wsdlFile2);
                 if(matchedWebServiceType != null)
-                    wsMatchingType.getMacthing().add(matchedWebServiceType);
+                    wsMatchingType.getMatching().add(matchedWebServiceType);
             }
         }
     }
