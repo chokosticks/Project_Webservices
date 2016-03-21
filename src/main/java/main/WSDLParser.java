@@ -166,8 +166,8 @@ public class WSDLParser {
             System.out.println("MATCHES FOUND FOR SERVICE : " + matchedWebServiceType.getInputServiceName());
             System.out.println("MATCHED WITH : " + matchedWebServiceType.getOutputServiceName());
             for(MatchedOperationType op: matchedWebServiceType.getMacthedOperation()) {
-                System.out.println("--Operation: " + op.getInputOperationName());
-                System.out.println("++Operation: " + op.getOutputOperationName());
+                System.out.println(">>Operation: " + op.getInputOperationName());
+                System.out.println("<<Operation: " + op.getOutputOperationName());
                 for(MatchedElementType el: op.getMacthedElement())
                     System.out.println("==== " + el.getInputElement() + " <-> " + el.getOutputElement() + "(" + el.getScore() + ")");
             }
