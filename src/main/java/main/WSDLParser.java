@@ -73,9 +73,6 @@ public class WSDLParser {
         {
             JAXBContext context = JAXBContext.newInstance(WSMatchingType.class);
             Marshaller marshaller = context.createMarshaller();
-//
-//                jaxbCtx = javax.xml.bind.JAXBContext.newInstance(matchedWebServiceType.getClass().getPackage().getName());
-//                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             String s = WSDLParser.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
@@ -163,6 +160,17 @@ public class WSDLParser {
         if(!matchedWebServiceType.getMacthedOperation().isEmpty()) {
             double serviceFinalScore = serviceScore / operationsCount;
             matchedWebServiceType.setWsScore(serviceFinalScore);
+
+
+            // Print some shit
+            System.out.println("MATCHES FOUND FOR SERVICE : " + matchedWebServiceType.getInputServiceName());
+            System.out.println("MATCHED WITH : " + matchedWebServiceType.getOutputServiceName());
+            for(MatchedOperationType op: matchedWebServiceType.getMacthedOperation()) {
+                System.out.println(">>Operation: " + op.getInputOperationName());
+                System.out.println("<<Operation: " + op.getOutputOperationName());
+                for(MatchedElementType el: op.getMacthedElement())
+                    System.out.println("==== " + el.getInputElement() + " <-> " + el.getOutputElement() + "(" + el.getScore() + ")");
+            }
         }
         else
             return null;

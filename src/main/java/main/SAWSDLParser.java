@@ -71,9 +71,6 @@ public class SAWSDLParser {
         {
             JAXBContext context = JAXBContext.newInstance(WSMatchingType.class);
             Marshaller marshaller = context.createMarshaller();
-//
-//                jaxbCtx = javax.xml.bind.JAXBContext.newInstance(matchedWebServiceType.getClass().getPackage().getName());
-//                javax.xml.bind.Marshaller marshaller = jaxbCtx.createMarshaller();
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_ENCODING, "UTF-8");
             marshaller.setProperty(javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             String s = WSDLParser.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
@@ -124,7 +121,6 @@ public class SAWSDLParser {
     }
 
     private MatchedWebServiceType match(WSDLFile wsdlFile1, WSDLFile wsdlFile2) {
-
         MatchedWebServiceType matchedWebServiceType = new MatchedWebServiceType();
         matchedWebServiceType.setInputServiceName(wsdlFile1.getService().getName());
         matchedWebServiceType.setOutputServiceName(wsdlFile2.getService().getName());
@@ -134,9 +130,8 @@ public class SAWSDLParser {
         double serviceScore = 0.0;
         int operationsCount = 0;
 
-        // Get all port types from wsdlFile1
+
         for(PortType inPortType: wsdlFile1.getDefinitions().getPortTypes()) {
-            // For each operation in portType of wsdlFile1
             for(Operation inOp: inPortType.getOperations()) {
                 MatchedOperationType operation = new MatchedOperationType();
 
@@ -144,33 +139,27 @@ public class SAWSDLParser {
                 operation.setInputOperationName(inOp.getName());
                 Message inMessage = inOp.getInput().getMessage();
 
-                // For each part of the message wsdlFile1
                 for(Part inPart: inMessage.getParts()) {
                     String inputPart = inPart.getName();
 
                     String typeIn = wsdlFile1.getTypes().get(inputPart.toLowerCase());
-                    String classsIn = wsdlFile1.getClasses().get(typeIn.toLowerCase());
+                    String classIn = wsdlFile1.getClasses().get(typeIn.toLowerCase());
 
 
-
-                    // Compare it with all output operations of wsdlFile2
                     for(PortType outPortType: wsdlFile2.getDefinitions().getPortTypes()) {
 
                         for (Operation outOp: outPortType.getOperations()) {
                             operation.setOutputOperationName(outOp.getName());
                             Message outMessage = outOp.getOutput().getMessage();
 
-                            // For each part in the output message
                             for(Part outPart: outMessage.getParts()) {
 
                                 String outputPart = outPart.getName();
 
                                 String typeOut = wsdlFile2.getTypes().get(outputPart.toLowerCase());
-                                String classsOut = wsdlFile2.getClasses().get(typeOut.toLowerCase());
+                                String classOut = wsdlFile2.getClasses().get(typeOut.toLowerCase());
 
-//                                System.out.println("\t[TYPE] "+typeOut+" [CLASS] "+classsOut);
-
-                                double score = matchingDegree(classsIn, classsOut);
+                                double score = matchingDegree(classIn, classOut);
 
                                 if(score >= LOWERBOUND) {
                                     opScore += score;
@@ -188,7 +177,7 @@ public class SAWSDLParser {
                     }
                 }
                 if(!operation.getMacthedElement().isEmpty()) {
-                    // If we actually had matches
+                    // If there were matches
                     double opFinalScore = opScore / elementCount;
                     operation.setOpScore(opFinalScore);
                     serviceScore += opFinalScore;
@@ -200,6 +189,17 @@ public class SAWSDLParser {
         if(!matchedWebServiceType.getMacthedOperation().isEmpty()) {
             double serviceFinalScore = serviceScore / operationsCount;
             matchedWebServiceType.setWsScore(serviceFinalScore);
+            // Print some shit
+            System.out.println("MATCHES FOUND FOR SERVICE : " + matchedWebServiceType.getInputServiceName());
+            System.out.println("MATCHED WITH : " + matchedWebServiceType.getOutputServiceName());
+            for(MatchedOperationType op: matchedWebServiceType.getMacthedOperation()) {
+                System.out.println(">>Operation: " + op.getInputOperationName());
+                System.out.println("<<Operation: " + op.getOutputOperationName());
+                for(MatchedElementType el: op.getMacthedElement()) {
+                    System.out.println("==== " + el.getInputElement() + " <-> " + el.getOutputElement() + "(" + el.getScore() + ")");
+                }
+
+            }
         }
         else
             return null;
@@ -209,6 +209,9 @@ public class SAWSDLParser {
 
     private double matchingDegree(String class1, String class2){
 
+
+
+
         if(class1.equalsIgnoreCase(class2))
             return 1.0;
 
@@ -217,8 +220,6 @@ public class SAWSDLParser {
 
         if(owlClass1 == null || owlClass2 == null)
             return 0.0;
-//        else if(reasoner.isSameAs(owlClass1.asOWLIndividual(), owlClass2.asOWLIndividual()))
-//            return 1.0;
         else if(reasoner.isSubClassOf(owlClass1, owlClass2))
             return 0.8;
         else if(reasoner.isSubClassOf(owlClass2,owlClass1))
