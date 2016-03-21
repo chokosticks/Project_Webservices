@@ -15,9 +15,7 @@ import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyManager;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -45,6 +43,18 @@ public class SAWSDLParser {
         owlOntology = myOntManager.initializeOntology(owlOntologyManager, "./src/main/resources/OWL/SUMO.owl");
         reasoner = myOntManager.initializeReasoner(owlOntology, owlOntologyManager);
         classes = myOntManager.loadClasses(reasoner);
+
+        Set<String> set = classes.keySet();
+        for(String s: set){
+            if(!classes.get(s).asOWLClass().isOWLIndividual()){
+                continue;
+            }
+            System.out.println("[className] "+s+" [OWLClass] "+classes.get(s));
+            if(classes.get(s).isOWLIndividual()){
+                System.out.println("JESUS LEVER");
+            }
+        }
+
         loadSAWSDLs();
     }
 
@@ -97,8 +107,8 @@ public class SAWSDLParser {
                 for(Part inPart: inMessage.getParts()) {
                     String inputPart = inPart.getName();
 
-                    String typeIn = wsdlFile1.getTypes().get(inputPart);
-                    String classsIn = wsdlFile1.getClasses().get(typeIn);
+                    String typeIn = wsdlFile1.getTypes().get(inputPart.toLowerCase());
+                    String classsIn = wsdlFile1.getClasses().get(typeIn.toLowerCase());
 
 
 
@@ -113,10 +123,10 @@ public class SAWSDLParser {
 
                                 String outputPart = outPart.getName();
 
-                                String typeOut = wsdlFile2.getTypes().get(outputPart);
-                                String classsOut = wsdlFile2.getClasses().get(typeOut);
+                                String typeOut = wsdlFile2.getTypes().get(outputPart.toLowerCase());
+                                String classsOut = wsdlFile2.getClasses().get(typeOut.toLowerCase());
 
-                                System.out.println("\t[TYPE] "+typeOut+" [CLASS] "+classsOut);
+//                                System.out.println("\t[TYPE] "+typeOut+" [CLASS] "+classsOut);
 
                                 double score = matchingDegree(classsIn, classsOut);
 
@@ -155,8 +165,10 @@ public class SAWSDLParser {
             for(MatchedOperationType op: matchedWebServiceType.getMacthedOperation()) {
                 System.out.println("--Operation: " + op.getInputOperationName());
                 System.out.println("++Operation: " + op.getOutputOperationName());
-                for(MatchedElementType el: op.getMacthedElement())
+                for(MatchedElementType el: op.getMacthedElement()) {
                     System.out.println("==== " + el.getInputElement() + " <-> " + el.getOutputElement() + "(" + el.getScore() + ")");
+                }
+
             }
         }
         else
@@ -166,20 +178,20 @@ public class SAWSDLParser {
     }
 
     private double matchingDegree(String class1, String class2){
+
+
+
+
         if(class1.equalsIgnoreCase(class2))
             return 1.0;
+
         OWLClass owlClass1 = classes.get(class1.toLowerCase());
         OWLClass owlClass2 = classes.get(class2.toLowerCase());
 
         if(owlClass1 == null || owlClass2 == null)
             return 0.0;
-
-//        System.out.println("[OWL1] "+owlClass1.toString()+" [OWL2] "+owlClass2.toString());
-
-        if(owlClass1 == null || owlClass2 == null)
-            return 0.0;
-        else if(reasoner.isSameAs(owlClass1.asOWLIndividual(), owlClass2.asOWLIndividual()))
-            return 1.0;
+//        else if(reasoner.isSameAs(owlClass1.asOWLIndividual(), owlClass2.asOWLIndividual()))
+//            return 1.0;
         else if(reasoner.isSubClassOf(owlClass1, owlClass2))
             return 0.8;
         else if(reasoner.isSubClassOf(owlClass2,owlClass1))

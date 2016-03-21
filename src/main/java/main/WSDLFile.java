@@ -34,13 +34,9 @@ public class WSDLFile {
     private String filename;
     private Definitions definitions;
     private Service service;
-    private String namespace = "http://www.w3.org/2001/XMLSchema";
 
-    private List<SimpleType> simpleTypes = new ArrayList<SimpleType>();
-    private List<ComplexType> complexTypes = new ArrayList<ComplexType>();
-    private HashMap<String, String> mapNameType = new HashMap<String, String>();
     private Schema schema;
-    private HashMap<String, String> attributes = new HashMap<String, String>();
+
     private HashMap<String, String> classes = new HashMap<String, String>();
     private HashMap<String, String> types = new HashMap<String, String>();
 
@@ -67,27 +63,27 @@ public class WSDLFile {
 
                 for (int i = 0; i < simpleTypes.getLength(); i++)
                 {
-                    String name = simpleTypes.item(i).getAttributes().getNamedItem("name").getNodeValue();
-                    String modelReference = simpleTypes.item(i).getAttributes().getNamedItem("sawsdl:modelReference").getTextContent();
+                    String name = simpleTypes.item(i).getAttributes().getNamedItem("name").getNodeValue().toLowerCase();
+                    String modelReference = simpleTypes.item(i).getAttributes().getNamedItem("sawsdl:modelReference").getNodeValue().toLowerCase();
                     String classs = null;
                     if (modelReference != null)
                     {
                         classs = extractClass(modelReference);
                     }
-                    System.out.println("[NAME] " + name + " [CLASS] " + classs);
+//                    System.out.println("[NAME] " + name + " [CLASS] " + classs+ " [modelReference] "+modelReference);
                     classes.put(name, classs);
 
                 }
                 for (int i = 0; i < complexTypes.getLength(); i++)
                 {
-                    String name = complexTypes.item(i).getAttributes().getNamedItem("name").getNodeValue();
-                    String modelReference = complexTypes.item(i).getAttributes().getNamedItem("sawsdl:modelReference").getTextContent();
+                    String name = complexTypes.item(i).getAttributes().getNamedItem("name").getNodeValue().toLowerCase();
+                    String modelReference = complexTypes.item(i).getAttributes().getNamedItem("sawsdl:modelReference").getNodeValue().toLowerCase();
                     String classs = null;
                     if (modelReference != null)
                     {
                         classs = extractClass(modelReference);
                     }
-                    System.out.println("[NAME] " + name + " [CLASS] " + classs);
+//                    System.out.println("[NAME] " + name + " [CLASS] " + classs+ " [modelReference] "+modelReference);
                     classes.put(name, classs);
                 }
 
@@ -95,10 +91,10 @@ public class WSDLFile {
 
                 for (int i = 0; i < parts.getLength(); i++)
                 {
-                    String name = parts.item(i).getAttributes().getNamedItem("name").getNodeValue();
-                    String type = parts.item(i).getAttributes().getNamedItem("type").getNodeValue();
+                    String name = parts.item(i).getAttributes().getNamedItem("name").getNodeValue().toLowerCase();
+                    String type = parts.item(i).getAttributes().getNamedItem("type").getNodeValue().toLowerCase();
 
-                    System.out.println("\t[NAME] " + name + " [TYPE] " + type);
+//                    System.out.println("\t[NAME] " + name + " [TYPE] " + type);
 
                     types.put(name, type);
                 }
@@ -116,7 +112,8 @@ public class WSDLFile {
     }
 
     private String extractClass(String modelReference){
-        return modelReference.substring(modelReference.indexOf("#")+1, modelReference.length());
+        String classs =  modelReference.substring(modelReference.indexOf("#")+1, modelReference.length());
+        return classs;
     }
 
     public Service getService()

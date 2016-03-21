@@ -66,9 +66,10 @@ public class WSDLParser {
         matchedWebServiceType.setInputServiceName(wsdlFile1.getService().getName());
         matchedWebServiceType.setOutputServiceName(wsdlFile2.getService().getName());  
 
-        double serviceScore = 0.0; int operationsCount = 0;
+        double serviceScore = 0.0;
+        int operationsCount = 0;
 
-        // Get all port types from wsdlFile1
+        // Porttypes from wsdl1
         for(PortType inPortType: wsdlFile1.getDefinitions().getPortTypes()) {
             // For each operation in portType of wsdlFile1
             for(Operation inOp: inPortType.getOperations()) {
@@ -78,18 +79,18 @@ public class WSDLParser {
                 operation.setInputOperationName(inOp.getName());
                 Message inMessage = inOp.getInput().getMessage();
 
-                // For each part of the message wsdlFile1
+                // For each part of a message from wsdlFile1
                 for(Part inPart: inMessage.getParts()) {
                     if(!isSimple(inPart)) continue;
                     String inputPart = inPart.getName(); 
 
-                    // Compare it with all output operations of wsdlFile2
+                    // Ouput of wsdl2
                     for(PortType outPortType: wsdlFile2.getDefinitions().getPortTypes()) {
-                        
+                        // For each operation in portType of wsdl2
                         for (Operation outOp: outPortType.getOperations()) {
                             operation.setOutputOperationName(outOp.getName());
                             Message outMessage = outOp.getOutput().getMessage();
-
+                            // For each part of a message from wsdl2
                             for(Part outPart: outMessage.getParts()) {
                                 if(!isSimple(outPart)) continue;
 
@@ -113,7 +114,6 @@ public class WSDLParser {
                     }
                 }
                 if(!operation.getMacthedElement().isEmpty()) {
-                    // If we actually had matches
                     double opFinalScore = opScore / elementCount;
                     operation.setOpScore(opFinalScore);
                     serviceScore += opFinalScore;

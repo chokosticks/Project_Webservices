@@ -31,8 +31,9 @@ public class Wordnet
         word1 = word1.toLowerCase();
         word2 = word2.toLowerCase();
 
-        // Compare w1 with w2 and all words from wordnet
-        double maxLevDistance = levensthein.getNormalizedDistance(word1, word2), temp = 0.0;
+        // Compare word1 with word2 and all words from wordnet
+        double maxLevDistance = levensthein.getNormalizedDistance(word1, word2);
+        double temp = 0.0;
         Synset[] synsets = database.getSynsets(word2, SynsetType.NOUN);
         NounSynset nounSynset;
         Set<String> w2words = new TreeSet<String>();
@@ -41,6 +42,9 @@ public class Wordnet
             w2words.add(nounSynset.getWordForms()[0]);
 
             temp = levensthein.getNormalizedDistance(word1, nounSynset.getWordForms()[0]);
+//
+//            System.out.println("[word1] "+word1+" [word2] "+word2+" [nounset[0]] "+nounSynset.getWordForms()[0]
+//            +" [temp : maxLev] "+temp+" : "+maxLevDistance);
 
             if(temp > maxLevDistance)
                 maxLevDistance = temp;
